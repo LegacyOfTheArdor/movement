@@ -23,13 +23,15 @@ namespace Movement
 	class MovingBall : SpriteNode
 	{
 		// your private fields here (add Velocity)
-
+		
+		private Vector2 Velocity;
 
 		// constructor + call base constructor
 		public MovingBall() : base("resources/dvdlogo.png")
 		{
 			Position = new Vector2(Settings.ScreenSize.X / 2, Settings.ScreenSize.Y / 4);
 			Color = Color.ORANGE;
+			Velocity = new Vector2(200, 100);
 		}
 
 		// Update is called every frame
@@ -43,7 +45,7 @@ namespace Movement
 		private void Move(float deltaTime)
 		{
 			// TODO implement
-			// Position += Velocity * deltaTime;
+			Position += Velocity * deltaTime;
 		}
 
 		private void BounceEdges()
@@ -54,11 +56,14 @@ namespace Movement
 			float spr_heigth = TextureSize.Y;
 
 			// TODO implement...
-			if (Position.X > scr_width)
+			if ((Position.X > scr_width) || (Position.X < 0))
 			{
-				// ...
+				Velocity.X = Velocity.X * -1;
+			}
+			if ((Position.Y > scr_height) || (Position.Y < 0))
+			{
+				Velocity.Y = Velocity.Y * -1;
 			}
 		}
-
 	}
 }

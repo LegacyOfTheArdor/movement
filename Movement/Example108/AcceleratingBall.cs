@@ -23,6 +23,8 @@ namespace Movement
 	class AcceleratingBall : SpriteNode
 	{
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
+		private Vector2 Velocity;
+		private Vector2 Acceleration;
 
 
 		// constructor + call base constructor
@@ -30,23 +32,25 @@ namespace Movement
 		{
 			Position = new Vector2(Settings.ScreenSize.X / 2, Settings.ScreenSize.Y / 4);
 			Color = Color.RED;
+			Velocity = new Vector2(0, 0);
 		}
 
 		// Update is called every frame
 		public override void Update(float deltaTime)
 		{
+			Acceleration = new Vector2(40, 30);
 			Move(deltaTime);
 			WrapEdges();
 		}
 
 		// your own private methods
-		private void Move(float deltaTime)
+		protected void Move(float deltaTime)
 		{
-			// TODO implement
-			// Position += Velocity * deltaTime;
-
-			// accelerate your ball (40, 30) every frame
-			// limit to a maximum speed of 1000 pixels/second
+			// Motion 101. Apply the rules.
+			Velocity += Acceleration * deltaTime;
+			Position += Velocity * deltaTime;
+			// Reset acceleration
+			Acceleration *= 0.0f;
 		}
 
 		private void WrapEdges()
@@ -59,7 +63,11 @@ namespace Movement
 			// TODO implement...
 			if (Position.X > scr_width)
 			{
-				// ...
+				Position.X = 0;
+			}
+			if (Position.Y > scr_height)
+			{
+				Position.Y = 0;
 			}
 		}
 
