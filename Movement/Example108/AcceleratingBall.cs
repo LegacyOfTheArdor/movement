@@ -25,6 +25,7 @@ namespace Movement
 		// your private fields here (add Velocity, Acceleration, and MaxSpeed)
 		private Vector2 Velocity;
 		private Vector2 Acceleration;
+		private float MaxSpeed = 100;
 
 
 		// constructor + call base constructor
@@ -41,6 +42,10 @@ namespace Movement
 			Acceleration = new Vector2(40, 30);
 			Move(deltaTime);
 			WrapEdges();
+			if(Velocity.Length() > MaxSpeed)
+			{
+				Acceleration = new Vector2(0, 0);
+			}
 		}
 
 		// your own private methods
